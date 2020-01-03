@@ -3,6 +3,11 @@ import tensorflow as tf
 from tensorflow.keras.layers import Dense, Flatten, Conv2D
 from tensorflow.keras import Model
 
+'''
+Subclassing API 提供了由运行定义的高级研究接口。为您的模型创建一个类，然后以命令方式编写前向传播。
+您可以轻松编写自定义层、激活函数和训练循环。
+'''
+
 mnist = tf.keras.datasets.mnist
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -40,10 +45,11 @@ class MyModel(Model):
 # 创建模型的实例
 model = MyModel()
 
+# 为训练选择优化器与损失函数：
 loss_object = tf.keras.losses.SparseCategoricalCrossentropy()
 optimizer = tf.keras.optimizers.Adam()
 
-# 定义train_loss/train_accuracy和test_loss/test_accuracy
+# 选择衡量指标来度量模型的损失值（loss）和准确率（accuracy）。这些指标在epoch上累积值，然后打印出整体结果。
 train_loss = tf.keras.metrics.Mean(name='train_loss')
 train_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name='train_accuracy')
 
