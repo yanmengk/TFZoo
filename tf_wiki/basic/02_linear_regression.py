@@ -8,26 +8,25 @@ y_raw = np.array([12000, 14000, 15000, 16500, 17500], dtype=np.float32) # 房价
 # 预处理
 X = (X_raw - X_raw.min()) / (X_raw.max() - X_raw.min())
 y = (y_raw - y_raw.min()) / (y_raw.max() - y_raw.min())
-print(X)
-print(y)
+# print(X)
+# print(y)
 
-# Numpy下的线性回归
-# a, b = 0, 0
-#
-# num_epoch = 10000
-# learning_rate = 1e-3
-# for e in range(num_epoch):
-#     # 手动计算损失函数关于自变量（模型参数）的梯度
-#     y_pred = a * X + b
-#     print(y_pred)
-#     grad_a, grad_b = (y_pred - y).dot(X), (y_pred - y).sum()
-#
-#     # 更新参数
-#     a, b = a - learning_rate * grad_a, b - learning_rate * grad_b
-#
-# print(a, b)
+# 方法一：Numpy下的线性回归
+a, b = 0, 0
 
-# TensorFlow下的线性回归
+num_epoch = 10000
+learning_rate = 1e-3
+for e in range(num_epoch):
+    # 手动计算损失函数关于自变量（模型参数）的梯度
+    y_pred = a * X + b
+    grad_a, grad_b = (y_pred - y).dot(X), (y_pred - y).sum()
+    # 更新参数
+    a, b = a - learning_rate * grad_a, b - learning_rate * grad_b
+
+print(a, b)
+# 0.97637 ， 0.05756
+
+# 方法二：TensorFlow下的线性回归【使用数学表达式】
 X = tf.constant(X)
 y = tf.constant(y)
 
@@ -48,7 +47,7 @@ for e in range(num_epoch):
     optimizer.apply_gradients(grads_and_vars=zip(grads,variables))
 
 print(variables[0].numpy(),variables[1].numpy())
-
+# 0.97637 0.057565
 
 
 
