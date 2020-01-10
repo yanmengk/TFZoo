@@ -1,20 +1,22 @@
 import tensorflow as tf
+from tensorflow.keras import Model
+
 import numpy as np
 
 # 上例中简单的线性模型 y_pred = a * X + b ，我们可以通过模型类的方式编写如下
 # 方法三：TensorFlow下的线性回归【使用模型类、神经单元】
-X_raw = np.array([2013, 2014, 2015, 2016, 2017], dtype=np.float32) # 年份
-y_raw = np.array([12000, 14000, 15000, 16500, 17500], dtype=np.float32) # 房价
-
+X_raw = np.array([2013, 2014, 2015, 2016, 2017], dtype=np.float32)  # 年份
+y_raw = np.array([12000, 14000, 15000, 16500, 17500], dtype=np.float32)  # 房价
 
 # 预处理
 X = (X_raw - X_raw.min()) / (X_raw.max() - X_raw.min())
 y = (y_raw - y_raw.min()) / (y_raw.max() - y_raw.min())
 
-X = tf.reshape(X,[5,1])
-y = tf.reshape(y,[5,1])
+X = tf.reshape(X, [5, 1])
+y = tf.reshape(y, [5, 1])
 
-class Linear(tf.keras.Model):
+
+class Linear(Model):
     def __init__(self):
         super(Linear, self).__init__()
         self.dense = tf.keras.layers.Dense(

@@ -15,7 +15,7 @@ x_train, x_test = x_train / 255.0, x_test / 255.0
 
 print(x_train.shape)
 # 增加一个维度
-x_train = x_train[..., tf.newaxis]
+x_train = x_train[..., tf.newaxis] # 也可以np.expand_dim(X_train,axis = -1)
 x_test = x_test[..., tf.newaxis]
 
 print(x_train.shape)
@@ -29,10 +29,11 @@ test_ds = tf.data.Dataset.from_tensor_slices((x_test, y_test)).batch(32)
 
 class MyModel(Model):
     def __init__(self):
-        super(MyModel, self).__init__()
+        super().__init__()
+        # 或者写成 super(MyModel,self).__init__()
         self.conv1 = Conv2D(32, 3, activation='relu')
         self.flatten = Flatten()
-        self.d1 = Dense(128, activation='relu')
+        self.d1 = Dense(128, activation='relu') # 或者 units = 128, activation = tf.nn.relu
         self.d2 = Dense(10, activation='softmax')
 
     def call(self, x):
@@ -46,15 +47,23 @@ class MyModel(Model):
 model = MyModel()
 
 # 为训练选择优化器与损失函数：
-loss_object = tf.keras.losses.SparseCategoricalCrossentropy()
-optimizer = tf.keras.optimizers.Adam()
+loss_object = tf.losses.SparseCategoricalCrossentropy()
+
+optimizer = tf.optimizers.Adam()
+"""
+    tf.losses.SparseCategoricalCrossentropy与tf.losses.sparse_categorical_crossentropy的区别：
+        tf.losses.sparse_categorical_crossentropy(y_true=y,y_pred=y_pred)是得到一个batch内每一个样本的loss
+            如batch_size=50时，得到的结果是shape=（50，）的Tensor
+        而tf.losses.SparseCategoricalCrossentropy()(y_true=y,y_pred=y_pred)得到的是reduce_mean之后的结果  
+            此时，结果shape=(),为一个标量，是50个loss值求平均的结果
+"""
 
 # 选择衡量指标来度量模型的损失值（loss）和准确率（accuracy）。这些指标在epoch上累积值，然后打印出整体结果。
-train_loss = tf.keras.metrics.Mean(name='train_loss')
-train_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name='train_accuracy')
+train_loss = tf.metrics.Mean(name='train_loss')
+train_accuracy = tf.metrics.SparseCategoricalAccuracy(name='train_accuracy')
 
-test_loss = tf.keras.metrics.Mean(name='test_loss')
-test_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name='test_accuracy')
+test_loss = tf.metrics.Mean(name='test_loss')
+test_accuracy = tf.metrics.SparseCategoricalAccuracy(name='test_accuracy')
 
 
 # 使用tf.GradientTape训练模型
@@ -62,7 +71,7 @@ test_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name='test_accuracy')
 def train_step(images, labels):
     with tf.GradientTape() as tape:
         predictions = model(images)
-        loss = loss_object(labels, predictions)
+        loss = loss_object(y_true=labels, y_pred=predictions)
     gradients = tape.gradient(loss, model.trainable_variables)
     optimizer.apply_gradients(zip(gradients, model.trainable_variables))
 
@@ -74,7 +83,7 @@ def train_step(images, labels):
 @tf.function
 def test_step(images, labels):
     predictions = model(images)
-    t_loss = loss_object(labels, predictions)
+    t_loss = loss_object(y_true=labels, y_pred=predictions)
     test_loss(t_loss)
     test_accuracy(labels, predictions)
 
