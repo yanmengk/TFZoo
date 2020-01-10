@@ -53,9 +53,9 @@ if __name__ == "__main__":
         X, y = data_loder.get_batch(batch_size)
         with tf.GradientTape() as tape:
             y_pred = model(X)
-            train_loss = loss_object(y_true=y,y_pred=y_pred)
-            train_accuracy = accuracy_object(y_true=y,y_pred=y_pred)
-            print("batch %d: loss: %f, accuracy: %f" % (batch_index, train_loss.numpy(),train_accuracy.numpy()))
+            train_loss = loss_object(y_true=y, y_pred=y_pred)
+            train_accuracy = accuracy_object(y_true=y, y_pred=y_pred)
+            print("batch %d: loss: %f, accuracy: %f" % (batch_index, train_loss.numpy(), train_accuracy.numpy()))
         gradients = tape.gradient(train_loss, model.variables)
         optimizer.apply_gradients(grads_and_vars=zip(gradients, model.variables))
 
@@ -66,4 +66,4 @@ if __name__ == "__main__":
         start, end = batch_index * batch_size, (batch_index + 1) * batch_size
         y_pred = model.predict(data_loder.test_data[start:end])
         accuracy_object.update_state(y_true=data_loder.test_label[start:end], y_pred=y_pred)
-    print("test accuracy: %f" % accuracy_object.result()) # 0.964052
+    print("test accuracy: %f" % accuracy_object.result())  # 0.964052
