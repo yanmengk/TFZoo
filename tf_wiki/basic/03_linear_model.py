@@ -30,7 +30,6 @@ class Linear(Model):
         output = self.dense(input)
         return output
 
-
 # 以下代码结构与前节类似
 model = Linear()
 optimizer = tf.keras.optimizers.SGD(learning_rate=1e-3)
