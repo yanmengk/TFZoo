@@ -1,15 +1,6 @@
 import tensorflow as tf
 import numpy as np
-
-
-# path = tf.keras.utils.get_file('nietzsche.txt',
-#             origin='https://s3.amazonaws.com/text-datasets/nietzsche.txt')
-# print(path)
-#
-# with open(path, encoding='utf-8') as f:
-#     raw_text = f.read().lower()
-#
-# print(raw_text)
+from tensorflow.keras import Model
 
 
 class DataLoader():
@@ -30,10 +21,10 @@ class DataLoader():
             index = np.random.randint(0, len(self.text) - seq_length)
             seq.append(self.text[index:index + seq_length])
             next_char.append(self.text[index + seq_length])
-        return np.array(seq), np.array(next_char)  # [batch_size, seq_length], [num_batch]
+        return np.array(seq), np.array(next_char)  # [batch_size, seq_length], [batch_size]
 
 
-class RNN(tf.keras.Model):
+class RNN(Model):
     def __init__(self, num_chars, batch_size, seq_length):
         super().__init__()
         self.num_chars = num_chars
