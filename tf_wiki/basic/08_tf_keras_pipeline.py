@@ -78,3 +78,7 @@ class SparseCategoricalAccuracy(tf.keras.metrics.Metric):
 
     def result(self):
         return self.count / self.total
+
+
+tf.reduce_mean
+tf.concat
