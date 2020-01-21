@@ -15,7 +15,7 @@ x_train, x_test = x_train / 255.0, x_test / 255.0
 
 print(x_train.shape)
 # 增加一个维度
-x_train = x_train[..., tf.newaxis] # 也可以np.expand_dim(X_train,axis = -1)
+x_train = x_train[..., tf.newaxis] # 也可以np.expand_dims(X_train,axis = -1)
 x_test = x_test[..., tf.newaxis]
 
 print(x_train.shape)
