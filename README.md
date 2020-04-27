@@ -1,11 +1,39 @@
-## TF_ZOO
-### 官网教程
-- OverView
-- Tutorial
-    - ML_basics_with_Keras
+## TensorFlow Zoo
+### 1.简单粗暴TensorFlow2
 
-### tf.wiki
-- basic
+| 模块             | 对应文件夹                   | 学习进度 |
+| ---------------- | ---------------------------- | :------: |
+| 基础             | tf_wiki/basic                |    ✅     |
+| 部署             | tf_wiki/deployment           |          |
+| 大规模训练与加速 | tf_wiki/large_scale_training |          |
+| 扩展             | tf_wiki/extensions           |          |
 
-### Hands_On
-- chapter12
+
+
+### 2.hand_on ml2
+
+| 章节 | 对应文件夹 | 学习进度 |
+| ---- | ---------- | :------: |
+|      |            |          |
+|      |            |          |
+|      |            |          |
+
+
+
+### 3.eat tensorflow2
+
+| 章节 | 对应文件夹 | 学习进度 |
+| ---- | ---------- | :------: |
+|      |            |          |
+|      |            |          |
+|      |            |          |
+
+
+
+### 4.官网教程
+
+| 章节     | 对应文件夹 | 学习进度 |
+| -------- | ---------- | :------: |
+| OverView |            |          |
+| Tutorial |            |          |
+|          |            |          |
