@@ -5,3 +5,5 @@ output
 checkpoint
 .ipynb_checkpoints/
 save
+saved
+__pycache__
