@@ -30,7 +30,7 @@ test_ds = tf.data.Dataset.from_tensor_slices((x_test, y_test)).batch(32)
 class MyModel(Model):
     def __init__(self):
         super().__init__()
-        # 或者写成 super(MyModel,self).__init__()
+        # 或者写成 super(MyModel,self).__init__() python2.7的写法
         self.conv1 = Conv2D(32, 3, activation='relu')
         self.flatten = Flatten()
         self.d1 = Dense(128, activation='relu') # 或者 units = 128, activation = tf.nn.relu
