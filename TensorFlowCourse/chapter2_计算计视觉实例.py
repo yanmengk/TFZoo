@@ -35,7 +35,7 @@ model.compile(optimizer='adam',
 class myCallback(tf.keras.callbacks.Callback):
     def on_epoch_end(self, epoch, logs=None):
         if (logs.get('accuracy')) > 0.88:
-            print("\nReached 99% accuracy, stop training model")
+            print("\nReached 88% accuracy, stop training model")
             self.model.stop_training = True
 
 
